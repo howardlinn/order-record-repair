@@ -1,0 +1,46 @@
+_ > nanoagent.plugin.v0001.ManifestConfig:
+id: order-record-repair
+name: Order Record Repair
+version: 0.1.0
+status: ready
+spec: nanoagent.plugin/v0001
+
+runtime > nanoagent.plugin.v0001.RuntimeConfig:
+  type: mcp_stdio
+  command: [uv, run, --frozen, python, -m, plugin]
+
+permissions > nanoagent.plugin.v0001.PermissionsConfig:
+  network > nanoagent.plugin.v0001.NetworkConfig:
+    hosts: []
+  filesystem > nanoagent.plugin.v0001.FilesystemConfig:
+    write: [workspace]
+
+# One entry per contract.Tool; its input and output classes are contract.TOOLS's.
+tools > dict[contract.Tool, nanoagent.plugin.v0001.ToolConfig]:
+  fetch_record:
+    description: Fetch an order record's text, exactly as stored, from the bundled records
+  parse_loose:
+    description: Read a record's text as fields, tolerating loose JSON (single quotes, bare keys, trailing commas) and name-value lines
+  normalize_field:
+    description: Normalize one field's value by the fixed rules, or say why it cannot be
+  repair_key:
+    description: The fully repaired record (the reference, never shown to the agent)
+
+# One entry per contract.Task; its input class is contract.TASKS's.
+tasks > dict[contract.Task, nanoagent.plugin.v0001.TaskConfig]:
+  normalize-field:
+    description: Normalize one value of an order field
+    runner: tool
+    tools: [normalize_field]
+    reference: null
+    instructions: Normalize the value for the field by the fixed rules.
+  repair-record:
+    description: Repair a messy order record into the strict schema
+    runner: agent
+    tools: [fetch_record, parse_loose, normalize_field]
+    reference: repair_key
+    instructions: |-
+      Repair the order record into the schema: order_id, email, quantity, unit_price_cents, country, ship_date and express.
+      Fetch its text with fetch_record and read it with parse_loose. Normalize the value of each of the seven fields (order_id, email, quantity, unit_price, country, ship_date, express) with normalize_field, passing the raw text parse_loose read for it, or an empty string when the record has no such field or is unreadable.
+      Never guess or fix a value yourself: use normalize_field's value exactly (unit_price comes back in cents). A field it cannot normalize is unfixable: list it in unfixable and leave its value empty, 0 or false.
+      Submit every field and the unfixable list.

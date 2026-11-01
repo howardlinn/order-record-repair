@@ -1,0 +1,10 @@
+{
+  "R1-CLEAN": "{\"order_id\": \"ORD-10001\", \"email\": \"ana@example.com\", \"quantity\": 2, \"unit_price\": 19.99, \"country\": \"US\", \"ship_date\": \"2026-12-18\", \"express\": false}",
+  "R2-MESSY": "{'order_id': 'ord 10002', 'email': ' Ben.Li@Example.COM ', 'quantity': '3', 'unit_price': '$1,250.5', 'country': 'usa', 'ship_date': '12/18/2026', 'express': 'yes',}",
+  "R3-EDGES": "{\"order_id\": \"ORD-1003\", \"email\": \"carla@example.com\", \"quantity\": \"0\", \"unit_price\": \"0\", \"country\": \"Canada\", \"ship_date\": \"02/29/2028\", \"express\": \"N\"}",
+  "R4-MISSING": "{order_id: \"ORD10004\", email: \"dev@example.org\", quantity: 1.0, express: 1}",
+  "R5-LINES": "order_id: ORD#10005\nemail: mailto:eve@shop.co.uk\nquantity: 99\nunit_price: USD 7\ncountry: U.K.\nship_date: Feb 29, 2027\nexpress: TRUE",
+  "R6-BROKEN": "{\"order_id\": \"10006\", \"email\": \"frank@example\", \"quantity\": \"100\", \"unit_price\": \"-5.00\", \"country\": \"japan\", \"ship_date\": \"2026-13-01\", \"express\": \"f\"}",
+  "R7-TRICKY": "{\"order_id\": \"ORD-10007\", \"email\": \"gina@example.com\", \"quantity\": \"2.5\", \"unit_price\": \"3,99\", \"country\": \"México\", \"ship_date\": \"December 1, 2026\", \"express\": \"\"}",
+  "R8-UNREADABLE": "<order><id>ORD-10008</id><email>hal@example.com</email></order>"
+}

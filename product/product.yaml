@@ -1,0 +1,11 @@
+_ > nanoagent.plugin.v0001.ProductConfig:
+tagline: "Turn messy order records into clean data, field by field"
+summary: "Give it an order record with loose JSON, odd dates, dollar signs and country names, and an agent reads it, normalizes every field by fixed rules and flags the fields that cannot be trusted, instead of guessing."
+highlights:
+  - "Fixed rules, so every record has exactly one right repair"
+  - "Flags what cannot be fixed rather than inventing a value"
+  - "Handles loose JSON, name-value lines and unreadable records"
+steps:
+  - "Pick an order record"
+  - "The agent reads it and normalizes each field with the rules"
+  - "It submits the repaired record, and the verifier checks every field"
